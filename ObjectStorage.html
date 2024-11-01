@@ -124,7 +124,7 @@
                     }
                 }
                 
-                resource "mgc_object_storage_buckets" "${bucketName}" {
+                resource "mgc_object_storage_buckets" "my-bucketName" {
                     name          = "${bucketName}"
                     region        = "${region}"
                     access_policy = "${accessPolicy}"
