@@ -131,7 +131,7 @@
                 }
 
                 resource "mgc_virtual_machine_instances" "${vmName}" {
-                    provider = mgc.${region}
+                    provider = "mgc"
                     name     = "${vmName}"
                     machine_type = {
                         name = "${machineType}"
