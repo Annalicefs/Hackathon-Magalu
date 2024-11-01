@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração de Object Storage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f5;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Configurar Object Storage</h1>
+        <label for="bucketName">Nome do Bucket:</label>
+        <input type="text" id="bucketName" placeholder="Ex: MeuBucket">
+
+        <label for="region">Região:</label>
+        <select id="region">
+            <option value="se">br-se1</option>
+            <option value="ne">br-ne1</option>
+        </select>
+
+        <label for="accessPolicy">Política de Acesso:</label>
+        <select id="accessPolicy">
+            <option value="private">Privado</option>
+            <option value="public">Público</option>
+        </select>
+
+        <button onclick="generateTerraformFile()">Gerar Arquivo Terraform</button>
+
+        <div class="output" id="terraformOutput"></div>
+    </div>
+
+    <script>
+        function generateTerraformFile() {
+            const bucketName = document.getElementById('bucketName').value;
+            const region = document.getElementById('region').value;
+            const accessPolicy = document.getElementById('accessPolicy').value;
+
+            if (!bucketName) {
+                alert('Por favor, insira um nome para o bucket.');
+                return;
+            }
+
+            const terraformConfig = `
+                provider "mgc" {
+                    region = "${region}"
+                }
+
+                resource "mgc_object_storage_bucket" "${bucketName}" {
+                    name          = "${bucketName}"
+                    region        = "${region}"
+                    access_policy = "${accessPolicy}"
+                }
+            `;
+
+            document.getElementById('terraformOutput').innerText = terraformConfig;
+        }
+    </script>
+</body>
+</html>
