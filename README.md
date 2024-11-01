@@ -1,2 +1,3 @@
 # Hackathon-Magalu
-https://console.magalu.cloud/object-storage?tab=1
+https://br-se1.magaluobjects.com/figmaaa/ObjectStorage.html
+https://br-se1.magaluobjects.com/figmaaa/VMs.html
