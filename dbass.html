@@ -65,6 +65,9 @@
 <body>
     <div class="container">
         <h1>Configurar DBaaS</h1>
+
+        <label for="dbFlavor">Flavor-ID:</label>
+        <input type="text" id="dbFlavor">
         
         <label for="dbName">Nome do Banco de Dados:</label>
         <input type="text" id="dbName" placeholder="Ex: meu_banco">
@@ -74,6 +77,9 @@
 
         <label for="dbPassword">Senha do Banco de Dados:</label>
         <input type="text" id="dbPassword" placeholder="Insira a senha">
+
+        <label for="dbEngine">Engine:</label>
+        <input type="text" id="dbEngine">
 
         <label for="dbInstanceType">Tipo de Instância:</label>
         <select id="dbInstanceType">
@@ -90,9 +96,11 @@
 
     <script>
         function generateTerraformFile() {
+            const dbFlavor = document.getElementById('dbFlavor').value;
             const dbName = document.getElementById('dbName').value;
             const dbUser = document.getElementById('dbUser').value;
             const dbPassword = document.getElementById('dbPassword').value;
+            const dbEngine = document.getElementById('dbEngine').value;
             const dbInstanceType = document.getElementById('dbInstanceType').value;
 
             if (!dbName || !dbUser || !dbPassword) {
@@ -110,9 +118,11 @@
               }
               
               resource "mgc_dbaas" "${dbName}" {
+                flavor_id = "${dbFlavor}"
                 name     = "${dbName}"
                 username = "${dbUser}"
                 password = "${dbPassword}"
+                engine_id = "${dbEngine}"
                 instance_type = "${dbInstanceType}"
               }
             `;
