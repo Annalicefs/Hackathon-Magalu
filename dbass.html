@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração de DBaaS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f5;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Configurar DBaaS</h1>
+        
+        <label for="dbName">Nome do Banco de Dados:</label>
+        <input type="text" id="dbName" placeholder="Ex: meu_banco">
+
+        <label for="dbUser">Usuário do Banco de Dados:</label>
+        <input type="text" id="dbUser" placeholder="Ex: meu_usuario">
+
+        <label for="dbPassword">Senha do Banco de Dados:</label>
+        <input type="text" id="dbPassword" placeholder="Insira a senha">
+
+        <label for="dbInstanceType">Tipo de Instância:</label>
+        <select id="dbInstanceType">
+            <option value="db.t2.micro">db.t2.micro</option>
+            <option value="db.t2.small">db.t2.small</option>
+            <option value="db.t2.medium">db.t2.medium</option>
+        </select>
+
+        <button onclick="generateTerraformFile()">Gerar Arquivo Terraform</button>
+        <div class="output" id="terraformOutput"></div>
+
+        <a href="https://console.magalu.cloud/db" target="_blank" class="button">Acessar DBaaS</a>
+    </div>
+
+    <script>
+        function generateTerraformFile() {
+            const dbName = document.getElementById('dbName').value;
+            const dbUser = document.getElementById('dbUser').value;
+            const dbPassword = document.getElementById('dbPassword').value;
+            const dbInstanceType = document.getElementById('dbInstanceType').value;
+
+            if (!dbName || !dbUser || !dbPassword) {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            const terraformConfig = `
+              terraform {
+                required_providers {
+                  mgc = {
+                    source = "magalucloud/mgc"
+                  }
+                }
+              }
+              
+              resource "mgc_dbaas" "${dbName}" {
+                name     = "${dbName}"
+                username = "${dbUser}"
+                password = "${dbPassword}"
+                instance_type = "${dbInstanceType}"
+              }
+            `;
+
+            document.getElementById('terraformOutput').innerText = terraformConfig;
+        }
+    </script>
+</body>
+</html>
