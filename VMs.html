@@ -130,7 +130,7 @@
                     region = "${region}"
                 }
 
-                resource "mgc_virtual_machine_instances" "${vmName}" {
+                resource "mgc_virtual_machine_instances" "myvm" {
                     provider = "mgc"
                     name     = "${vmName}"
                     machine_type = {
