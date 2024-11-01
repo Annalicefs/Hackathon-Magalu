@@ -80,11 +80,11 @@
             <option value="public">Público</option>
         </select>
 
-        <label for="accessKey"> Key ID:</label>
-        <input type="text" id="KeyId" placeholder="Insira o Key ID">
+        <label for="accessKey">Access Key ID:</label>
+        <input type="text" id="accessKey" placeholder="Insira o Access Key ID">
 
-        <label for="secretKey">Secret Key:</label>
-        <input type="text" id="secretKey" placeholder="Insira o Secret Key">
+        <label for="secretKey">Secret Access Key:</label>
+        <input type="text" id="secretKey" placeholder="Insira o Secret Access Key">
 
         <button onclick="generateTerraformFile()">Gerar Arquivo Terraform</button>
         <div class="output" id="terraformOutput"></div>
@@ -97,8 +97,8 @@
             const bucketName = document.getElementById('bucketName').value;
             const region = document.getElementById('region').value;
             const accessPolicy = document.getElementById('accessPolicy').value;
-            const accessKey = document.getElementById('KeyID').value;
-            const secretkey = document.getElementById('secretKey').value;
+            const accessKey = document.getElementById('accessKey').value;
+            const secretKey = document.getElementById('secretKey').value;
 
             if (!bucketName) {
                 alert('Por favor, insira um nome para o bucket.');
@@ -110,12 +110,12 @@
                     region = "${region}"
                     object_storage = {
                         key_pair = {
-                          key_id = "${accessKey}"
-                          key_secret = "${secretkey}"
+                            key_id = "${accessKey}"
+                            key_secret = "${secretKey}"
                         }
-                      }
+                    }
                 }
-
+                
                 resource "mgc_object_storage_bucket" "${bucketName}" {
                     name          = "${bucketName}"
                     region        = "${region}"
