@@ -83,15 +83,16 @@
         <label for="sshKeyName">Nome da Chave SSH:</label>
         <input type="text" id="sshKeyName" placeholder="Ex: ssh_key">
 
-        <label for="accessKeyId">Access Key ID:</label>
-        <input type="text" id="accessKeyId" placeholder="Insira o Access Key ID">
+        <label for="accessKey">Access Key ID:</label>
+        <input type="text" id="accessKeyId" placeholder="Insira o Access Key">
 
-        <label for="secretKeyId">Secret Key ID:</label>
-        <input type="text" id="secretKeyId" placeholder="Insira o secret Key ID">
+        <label for="secretKey">Secret Key:</label>
+        <input type="text" id="secretKeyId" placeholder="Insira o Secret Key">
 
         <button onclick="generateTerraformFile()">Gerar Arquivo Terraform</button>
-
         <div class="output" id="terraformOutput"></div>
+
+        <a href="https://console.magalu.cloud/object-storage?tab=1" target="_blank" class="button">Obter Access Key e Secret Key</a>
     </div>
 
     <script>
