@@ -80,9 +80,6 @@
             <option value="public">Público</option>
         </select>
 
-        <label for="sshKeyName">Nome da Chave SSH:</label>
-        <input type="text" id="sshKeyName" placeholder="Ex: ssh_key">
-
         <label for="accessKey">Access Key ID:</label>
         <input type="text" id="accessKeyId" placeholder="Insira o Access Key">
 
@@ -109,12 +106,18 @@
             const terraformConfig = `
                 provider "mgc" {
                     region = "${region}"
+                    object-store{
+                    
+                    
                 }
 
                 resource "mgc_object_storage_bucket" "${bucketName}" {
                     name          = "${bucketName}"
                     region        = "${region}"
                     access_policy = "${accessPolicy}"
+                    access_policy = "${accessPolicy}"
+                    access_policy = "${accessPolicy}"
+                    
                 }
             `;
 
