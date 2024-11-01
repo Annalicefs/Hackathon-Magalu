@@ -97,6 +97,8 @@
             const bucketName = document.getElementById('bucketName').value;
             const region = document.getElementById('region').value;
             const accessPolicy = document.getElementById('accessPolicy').value;
+            const accessKey = document.getElementById('KeyID').value;
+            const secretkey = document.getElementById('secretkey').value;
 
             if (!bucketName) {
                 alert('Por favor, insira um nome para o bucket.');
@@ -108,7 +110,7 @@
                     region = "${region}"
                     object_storage = {
                         key_pair = {
-                          key_id = "${KeyID}"
+                          key_id = "${accessKey}"
                           key_secret = "${secretkey}"
                         }
                       }
