@@ -80,6 +80,15 @@
             <option value="public">Público</option>
         </select>
 
+        <label for="sshKeyName">Nome da Chave SSH:</label>
+        <input type="text" id="sshKeyName" placeholder="Ex: ssh_key">
+
+        <label for="accessKeyId">Access Key ID:</label>
+        <input type="text" id="accessKeyId" placeholder="Insira o Access Key ID">
+
+        <label for="secretKeyId">Secret Key ID:</label>
+        <input type="text" id="secretKeyId" placeholder="Insira o secret Key ID">
+
         <button onclick="generateTerraformFile()">Gerar Arquivo Terraform</button>
 
         <div class="output" id="terraformOutput"></div>
