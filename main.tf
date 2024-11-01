@@ -7,31 +7,20 @@ terraform {
 }
 
 provider "mgc" {
-    region="br-se1"
-}
-
-resource "mgc_virtual_machine_instances" "myvm" {
-    provider = "mgc"
-    name = "cafeinaa"
-    machine_type = {
-        name = "cloud-bs1.xsmall"
-    }
-
-    image = {
-        name = "cloud-ubuntu-22.04 LTS"
-    }
-
-   network = {
-    associate_public_ip = true
-    interface = {
-      security_groups = [{
-         # grupo criado previamente pelo gabriel
-        id = "4aa1a237-2d57-439b-bf6a-177ddbace4cb"
-      }]
+  region = "br-se1"
+  object_storage = {
+    key_pair = {
+      key_id = "5ad2253f-6b8b-4edf-871e-a5429994bb0a"
+      key_secret = "b2881256-f899-457a-837e-d31618cf1fda"
     }
   }
+}
 
-
-    ssh_key_name = "bruxaria"
+resource "mgc_object_storage_buckets" "my-bucket" {
+  provider = mgc
+  bucket = "figmaaa"
+  enable_versioning = true
+  recursive = true # If true, any configuration or operation specified in the resource will be applied not only to the bucket itself but also to all the objects contained within that bucket.
+  bucket_is_prefix = false # Indicates whether the bucket name will be used as a prefix for objects.
 }
 
